@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Plant Vision Form</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">PlantVision <i class="fas fa-leaf text-success"></i></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">Identify</a></li>
+          <li><a href="services.html">Discover</a></li>
+          <li><a href="portfolio.html">About us</a></li>
+          <li><a href="team.html">Profile</a></li>
+         <!-- <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>-->
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+
+    <!-- About 2 Section -->
+    <section id="identify" class="identify section">
+
+      <div class="container">
+        <div class="content">
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4 order-lg-2 offset-xl-1 mb-4">
+              <div class="img-wrap text-center text-md-left" data-aos="fade-up" data-aos-delay="100">
+                <div class="img">
+                  <img src="../assets/img/logo.png" alt="circle image" class="img-fluid">
+                </div>
+              </div>
+            </div>
+
+            <div class="offset-md-0 offset-lg-1 col-sm-12 col-md-5 col-lg-5 col-xl-4" data-aos="fade-up">
+              <div class="px-3">
+                <span class="content-subtitle">Unsure the Variegation?</span>
+                <h2 class="content-title text-start">
+                  Scan your image here!
+                </h2>
+                <!-- Video element to show camera feed -->
+                <div class="video-container">
+                  <video id="camera" autoplay style="display:none; width: 100%;"></video>
+                </div>
+                <!-- Canvas element to show captured image -->
+                <canvas id="snapshot" style="display:none; width: 100%;"></canvas>
+                <!-- Buttons to open camera and gallery -->
+                <p>
+                  <a href="#" class="btn-get-started" id="cameraButton">Open Camera</a>
+                  <a href="#" class="btn-get-started" id="galleryButton">Open Gallery</a>
+                </p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /About 2 Section -->
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
+          <div class="widget">
+            <h3 class="widget-heading">Plant Vision</h3>
+            <p class="mb-4">The community for all collectors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Identified Plant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          This will show the result for the plant identified
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modalCancelButton" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+  
+  <!-- Camera and Gallery Access Script -->
+  <script>
+    const cameraButton = document.getElementById('cameraButton');
+    const galleryButton = document.getElementById('galleryButton');
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('snapshot');
+    const fileInput = document.getElementById('fileInput');
+    const modalCancelButton = document.getElementById('modalCancelButton');
+    const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+
+    let stream;
+
+    cameraButton.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      if (cameraButton.textContent === 'Open Camera') {
+        video.style.display = 'block';
+        canvas.style.display = 'none';
+        cameraButton.textContent = 'Snap Image';
+        galleryButton.textContent = 'Cancel';
+
+        const constraints = {
+          video: true
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then((mediaStream) => {
+            stream = mediaStream;
+            video.srcObject = stream;
+          })
+          .catch((err) => {
+            console.error('Error accessing the camera: ', err);
+          });
+      } else if (cameraButton.textContent === 'Snap Image') {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'block';
+        video.style.display = 'none';
+        cameraButton.textContent = 'Confirm';
+        galleryButton.textContent = 'Retake Image';
+      } else if (cameraButton.textContent === 'Confirm') {
+        confirmationModal.show();
+      }
+    });
+
+    galleryButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (galleryButton.textContent === 'Cancel') {
+        if (stream) {
+          stream.getTracks().forEach(track => track.stop());
+        }
+        video.style.display = 'none';
+        canvas.style.display = 'none';
+        cameraButton.textContent = 'Open Camera';
+        galleryButton.textContent = 'Open Gallery';
+      } else if (galleryButton.textContent === 'Retake Image') {
+        video.style.display = 'block';
+        canvas.style.display = 'none';
+        cameraButton.textContent = 'Snap Image';
+        galleryButton.textContent = 'Cancel';
+      } else {
+        fileInput.click();
+      }
+    });
+
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const context = canvas.getContext('2d');
+      const img = new Image();
+
+      img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'block';
+        video.style.display = 'none';
+        cameraButton.textContent = 'Confirm';
+        galleryButton.textContent = 'Retake Image';
+      };
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    modalCancelButton.addEventListener('click', function() {
+      video.style.display = 'none';
+      canvas.style.display = 'none';
+      cameraButton.textContent = 'Open Camera';
+      galleryButton.textContent = 'Open Gallery';
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    });
+  </script>
+</body>
+
+</html>
