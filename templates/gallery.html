@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Plant Vision Form</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+
+<style>
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+</style>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="/index" class="logo d-flex align-items-center">
+        <h1 class="sitename">PlantVision <i class="fas fa-leaf text-success"></i></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="/index" class="active">Home</a></li>
+          <li><a href="/identify">Identify</a></li>
+          <li><a href="/discover">Discover</a></li>
+          <li><a href="/aboutus">About us</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="row" id="plant-cards">
+          <div class="header-container">
+            <div>
+              <h2 id="gallery-name">{{ gallery_name }}</h2>
+              <p id="gallery-description">{{ plant_description }}</p>
+              <p id="gallery-tags">{{ gallery_tags }}</p>
+            </div>
+            <div>
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editGalleryModal" onclick="populateEditGalleryModal()">Edit Gallery Info</a>
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPlantModal">Add New Image</a>
+            </div>
+          </div>
+          <hr>
+          <div id="plant-images" class="row">
+            {% for image in images %}
+              <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <img src="{{ url_for('uploaded_file', filename=image[1]) }}" class="card-img-top" alt="Plant Image" onclick="enlargeImage('{{ url_for('uploaded_file', filename=image[1]) }}', {{ image[0] }})">
+                  <div class="card-body text-center">
+                    <p class="card-text">{{ image[2] }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
+          <div class="widget">
+            <h3 class="widget-heading">Plant Vision</h3>
+            <p class="mb-4">The community for all collectors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+
+  <!-- Edit Gallery Modal -->
+  <div class="modal fade" id="editGalleryModal" tabindex="-1" aria-labelledby="editGalleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editGalleryModalLabel">Edit Gallery Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editGalleryForm">
+            <div class="mb-3">
+              <label for="editGalleryName" class="form-label">Gallery Name</label>
+              <input type="text" class="form-control" id="editGalleryName" name="gallery_name" required>
+            </div>
+            <div class="mb-3">
+              <label for="editGalleryDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editGalleryDescription" name="plant_description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editGalleryTags" class="form-label">Gallery Tags</label>
+              <input type="text" class="form-control" id="editGalleryTags" name="gallery_tags" placeholder="Add tags separated by commas">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Plant Modal -->
+  <div class="modal fade" id="addPlantModal" tabindex="-1" aria-labelledby="addPlantModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPlantModalLabel">Add Plant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addPlantForm" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="plantImage" class="form-label">Plant Image</label>
+              <input type="file" class="form-control" id="plantImage" name="plant_image" accept="image/*" required>
+            </div>
+            <div class="mb-3">
+              <label for="plantDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="plantDescription" name="plant_description" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Plant</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enlarge Image Modal -->
+  <div class="modal fade" id="enlargeImageModal" tabindex="-1" aria-labelledby="enlargeImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="enlargeImageModalLabel">Enlarged Image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="enlargedImage" src="" class="img-fluid" alt="Enlarged Image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="deleteImageButton">Delete Image</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+
+  <!-- Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let currentImageId = null;
+
+      // Populate Edit Gallery Modal with current information
+      window.populateEditGalleryModal = function() {
+        document.getElementById('editGalleryName').value = document.getElementById('gallery-name').innerText;
+        document.getElementById('editGalleryDescription').value = document.getElementById('gallery-description').innerText;
+        document.getElementById('editGalleryTags').value = document.getElementById('gallery-tags').innerText;
+      }
+
+      // Edit Gallery Form Submission
+      document.getElementById('editGalleryForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var galleryId = '{{ gallery_id }}';
+
+        fetch(`/edit-gallery/${galleryId}`, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById('gallery-name').innerText = formData.get('gallery_name');
+            document.getElementById('gallery-description').innerText = formData.get('plant_description');
+            document.getElementById('gallery-tags').innerText = formData.get('gallery_tags');
+            var editGalleryModal = bootstrap.Modal.getInstance(document.getElementById('editGalleryModal'));
+            editGalleryModal.hide();
+          } else {
+            alert('Failed to update gallery info');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+
+      // Add Plant Form Submission
+      document.getElementById('addPlantForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var galleryId = '{{ gallery_id }}';
+
+        fetch(`/add-image/${galleryId}`, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            var newCard = document.createElement('div');
+            newCard.className = 'col-md-4 mb-4';
+            newCard.innerHTML = `
+              <div class="card h-100">
+                <img src="${data.image_path}" class="card-img-top" alt="Plant Image" onclick="enlargeImage('${data.image_path}', ${data.image_id})">
+                <div class="card-body text-center">
+                  <p class="card-text">${formData.get('plant_description')}</p>
+                </div>
+              </div>
+            `;
+            document.getElementById('plant-images').appendChild(newCard);
+            var addPlantModal = bootstrap.Modal.getInstance(document.getElementById('addPlantModal'));
+            addPlantModal.hide();
+            document.getElementById('addPlantForm').reset();
+          } else {
+            alert('Failed to add plant');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+
+      // Enlarge Image function
+      window.enlargeImage = function(imagePath, imageId) {
+        document.getElementById('enlargedImage').src = imagePath;
+        currentImageId = imageId;
+        var enlargeImageModal = new bootstrap.Modal(document.getElementById('enlargeImageModal'));
+        enlargeImageModal.show();
+      }
+
+      // Delete Image function
+      document.getElementById('deleteImageButton').addEventListener('click', function() {
+        if (confirm('Are you sure you want to delete this image?')) {
+          fetch(`/delete-image/${currentImageId}`, {
+            method: 'POST'
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.querySelector(`img[src="${data.image_path}"]`).closest('.col-md-4').remove();
+              var enlargeImageModal = bootstrap.Modal.getInstance(document.getElementById('enlargeImageModal'));
+              enlargeImageModal.hide();
+            } else {
+              alert('Failed to delete image');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
