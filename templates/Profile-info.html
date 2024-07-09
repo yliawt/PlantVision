@@ -11,55 +11,63 @@
     <!-- Merriweather Font -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 </head>
 <body>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Plant Vision  <i class="fas fa-leaf "></i></h1>
+            <h1>Plant Vision <i class="fas fa-leaf"></i></h1>
         </div>
+        <a href="/index" style="text-decoration: none; color: #666;">Skip</a>
         <!-- Profile Information Section -->
         <section id="profile_information">
-            <form action="mainpage.html" method="POST">
+            <form action="/profile-info" method="POST">
                 <div class="mb-3">
-                    <fieldset class="border p-3">
-                        <legend class="w-auto px-2">Personal</legend>
-                        <div class="mb-3 input-group">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            <input type="text" class="form-control" id="aboutMe" placeholder="Describe yourself" oninput="limitWords(this)">
-                        </div>
-                        <select class="form-select" id="userType">
-                            <option disabled selected>Please choose</option>
-                            <option value="newbie">Newbie</option>
-                            <option value="interest">Interest</option>
-                            <option value="collector">Collector</option>
-                        </select>
-                    </fieldset>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" oninput="limitWords(this)"></textarea>
                 </div>
                 <div class="mb-3">
-                    <fieldset class="border p-3">
-                        <legend class="w-auto px-2">Contact</legend>
-                        <div class="mb-3 input-group">
-                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" id="state" placeholder="Enter your state">
-                        </div>
-                        <div class="mb-3 input-group">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                            <input type="tel" class="form-control" id="contactNumber" placeholder="Contact number">
-                        </div>
-                        <div class="mb-3 input-group">
-                            <span class="input-group-text"><i class="fab fa-instagram"></i></span>
-                            <input type="text" class="form-control" id="instagram" placeholder="Instagram">
-                        </div>
-                        <div class="mb-3 input-group">
-                            <span class="input-group-text"><i class="fab fa-facebook-square"></i></span>
-                            <input type="text" class="form-control" id="facebook" placeholder="Facebook">
-                        </div>
-                    </fieldset>
+                    <label for="usertype" class="form-label">User Type</label>
+                    <select class="form-control" id="usertype" name="usertype">
+                        <option value="Newbie">Newbie</option>
+                        <option value="Interest">Interest</option>
+                        <option value="Collector">Collector</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <select class="form-control" id="state" name="state">
+                        <option value="Sarawak">Sarawak</option>
+                        <option value="Sabah">Sabah</option>
+                        <option value="Johor">Johor</option>
+                        <option value="Kedah">Kedah</option>
+                        <option value="Kelantan">Kelantan</option>
+                        <option value="Malacca">Malacca</option>
+                        <option value="Negeri Sembilan">Negeri Sembilan</option>
+                        <option value="Pahang">Pahang</option>
+                        <option value="Penang">Penang</option>
+                        <option value="Perak">Perak</option>
+                        <option value="Perlis">Perlis</option>
+                        <option value="Selangor">Selangor</option>
+                        <option value="Terengganu">Terengganu</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="Labuan">Labuan</option>
+                        <option value="Putrajaya">Putrajaya</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="contact_number" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="contact_number" name="contact_number">
+                </div>
+                <div class="mb-3">
+                    <label for="instagram" class="form-label">Instagram</label>
+                    <input type="text" class="form-control" id="instagram" name="instagram">
+                </div>
+                <div class="mb-3">
+                    <label for="facebook" class="form-label">Facebook</label>
+                    <input type="text" class="form-control" id="facebook" name="facebook">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
-                <br><br>
-                <a href="someotherpage.html" style="text-decoration: none; color: #666;">Skip</a>
             </form>
         </section>
     </div>
