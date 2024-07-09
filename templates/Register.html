@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Plant Vision</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     
     <div class="container">
         <div class="header-container">
             <h1>PLANT VISION</h1>
-            <img src="../assets/img/leaf_icon.png" alt="Leaf Icon" class="leaf-icon">
+            <img src="{{ url_for('static', filename='img/leaf_icon.png') }}" alt="Leaf Icon" class="leaf-icon">
         </div>
         <br>
-        <form class="register-form">
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="new-password" placeholder="New Password" required>
-            <input type="password" id="retype-password" placeholder="Retype Password" required>
-            <button type="submit">Register</button>
-        </form>
-        <a href="login.html" class="login-link">Return to Log In</a>
+        <form class="register-form" method="POST" action="/register">
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="new-password" name="new-password" placeholder="New Password" required>
+            <input type="password" id="retype-password" name="retype-password" placeholder="Retype Password" required>
+            <button type="submit" class="btn btn-success">Register</button>
+          </form>
+          
+        <a href="/" class="login-link">Return to Log In</a>
     </div>
 
 </body>
