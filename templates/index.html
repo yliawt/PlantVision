@@ -10,30 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="../assets/css/main.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 </head>
 
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/index" class="logo d-flex align-items-center">
         <h1 class="sitename">PlantVision <i class="fas fa-leaf text-success"></i></h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">Identify</a></li>
-          <li><a href="services.html">Discover</a></li>
-          <li><a href="portfolio.html">About us</a></li>
-          <li><a href="team.html">Profile</a></li>
-         <!-- <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html">Contact</a></li>-->
+          <li><a href="/index" class="active">Home</a></li>
+          <li><a href="/identify">Identify</a></li>
+          <li><a href="/discover">Discover</a></li>
+          <li><a href="/aboutus">About us</a></li>
+          <li><a href="/profile">Profile</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -46,27 +44,26 @@
         <div class="row align-items-center justify-content-between w-100">
           <div class="col welcome" id="welcome">
             <h3>Welcome</h3>
-            <h1>Liaw Yee</h1>
+            <h1>{{ username }}</h1>
           </div>
-           
-            
-          
         </div>
 
         <div class="row" id="plant-cards">
-         
-          <h2>Your Plants <a href="#" class="add-plant-link"><i class="bi bi-plus-circle"></i></a></h2>
+          <h2>Your Gallery <a href="#" class="add-plant-link" data-bs-toggle="modal" data-bs-target="#addPlantModal"><i class="bi bi-plus-circle"></i></a></h2>
           <hr>
+          {% for plant in plants %}
           <div class="col-md-4 mb-4">
             <div class="card h-100">
-              <img src="../assets/img/logo.png" class="card-img-top" alt="Plant Image">
               <div class="card-body text-center">
-                <h5 class="card-title">Syngonium Podophyllum</h5>
-                <p class="card-text">Plant Dehis plant idk what to write Plant Description on this plant idk what to write</p>
-                <a href="#" class="btn btn-success">View</a>
+                <h5 class="card-title">{{ plant[1] }}</h5> <!-- gallery_name -->
+                <p class="card-text">{{ plant[2] }}</p> <!-- plant_description -->
+                <p class="card-tags">{{ plant[3] }}</p> <!-- gallery_tags -->
+                <a href="{{ url_for('gallery', gallery_id=plant[0]) }}" class="btn btn-success">View</a>
+
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
       </div>
     </section>
@@ -85,20 +82,52 @@
     </div>
   </footer>
 
+  <!-- Add Plant Modal -->
+  <div class="modal fade" id="addPlantModal" tabindex="-1" aria-labelledby="addPlantModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPlantModalLabel">Add Plant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addPlantForm" method="POST" action="/add-plant">
+            <div class="mb-3">
+              <label for="galleryName" class="form-label">Gallery Name</label>
+              <input type="text" class="form-control" id="galleryName" name="galleryName" required>
+            </div>
+            <div class="mb-3">
+              <label for="plantDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="plantDescription" name="plantDescription" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="galleryTags" class="form-label">Gallery Tags</label>
+              <input type="text" class="form-control" id="galleryTags" name="galleryTags" placeholder="Add tags separated by commas">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Plant</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/aos/aos.js"></script>
-  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 
   <!-- Main JS File -->
-  <script src="../assets/js/main.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 
 </html>
