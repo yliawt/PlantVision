@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="services-page">
+  <main class="main min-vh-100"> <!-- Ensures minimum height of 100vh -->
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Welcome, Liaw Yee</h1>
+        <h2>What are you planning to do today?</h2>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Services 2 Section -->
+    <section id="services-2" class="services-2 section">
+
+      <div class="container">
+        <div class="row justify-content-center align-items-stretch" data-aos="fade-up">
+
+          <!-- My Gallery Card -->
+          <div class="col-xs-4 col-sm-4 col-lg-4 d-flex">
+            <a href="my-submission.html" class="card-link flex-fill"> <!-- Add the anchor tag with the link -->
+            <div class="card text-white mb-3 flex-fill" style="background-color: #053F31;">
+              <div class="card-body d-flex justify-content-center align-items-center">
+                <h2 class="card-title">My Gallery</h2>
+              </div>
+            </div>
+            </a>
+          </div>
+
+
+          <!-- My Submission Card with Navigation Link -->
+<div class="col-xs-4 col-sm-4 col-lg-4 d-flex">
+  <a href="my-submission.html" class="card-link flex-fill"> <!-- Add the anchor tag with the link -->
+      <div class="card mb-3 flex-fill" style="background-image: url('../static/img/img_h_3.jpg'); background-size: cover;">
+          <div class="card-body d-flex justify-content-center align-items-center">
+              <h2 class="card-title text-white">My Submission</h2>
+          </div>
+      </div>
+  </a>
+</div>
+
+
+          <div class="col-xs-4 col-sm-4 col-lg-4">
+            <!-- Scan Image Card -->
+            <div class="row flex-grow-1">
+              <div class="col d-flex">
+                <a href="my-submission.html" class="card-link flex-fill"> <!-- Add the anchor tag with the link -->
+                <div class="card bg-success text-white mb-3 flex-fill">
+                  <div class="card-body text-center">
+                    <h2 class="card-title">Scan Image</h2>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </div>
+            <!-- Discover Card -->
+            <div class="row flex-grow-1">
+              <div class="col d-flex">
+                <a href="my-submission.html" class="card-link flex-fill"> <!-- Add the anchor tag with the link -->
+                <div class="card mb-3 flex-fill"
+                  style="background-image: url('../static/img/img_h_2.jpg'); background-size: cover;">
+                  <div class="card-body text-center">
+                    <h2 class="card-title text-white">Discover</h2>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Services 2 Section -->
+  </main>
+</div>
+
+{% endblock %}
