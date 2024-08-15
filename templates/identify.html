@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+        <div class="container">
+            <h1>Welcome, Liaw Yee!</h1>
+        </div>
+    </div><!-- End Page Title -->
+
+    <!-- Identify Section -->
+    <section id="identify" class="identify section">
+
+        <div class="container">
+            <div class="content">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4 order-lg-2 offset-xl-1 mb-4">
+                        <div class="img-wrap text-center text-md-left" data-aos="fade-up" data-aos-delay="100">
+                            <div class="img">
+                                <img src="{{ url_for('static', filename='img/logo.png') }}" class="card-img-top"
+                                    alt="Plant Image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="offset-md-0 offset-lg-1 col-sm-12 col-md-5 col-lg-5 col-xl-4" data-aos="fade-up">
+                        <div class="px-3">
+                            <span class="content-subtitle">Unsure the Variegation?</span>
+                            <h2 class="content-title text-start">
+                                Scan your image here!
+                            </h2>
+                            
+                            <!-- Buttons to open camera and gallery -->
+                            <p>
+                                <a href="#" class="btn-get-started" id="cameraButton">Open Camera</a>
+                                <a href="#" class="btn-get-started" id="galleryButton">Open Gallery</a>
+                            </p>
+
+                            <!-- Hidden file input to handle image capture or selection -->
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+                            <!-- Video element to show camera feed -->
+                            <video id="camera" autoplay style="display:none; width: 100%;"></video>
+                            
+                            <!-- Canvas element to show captured image -->
+                            <canvas id="snapshot" style="display:none; width: 100%;"></canvas>
+
+                            <!-- Buttons for further actions after capturing or selecting an image -->
+                            <p id="actionButtons" style="display:none;">
+                                <a href="#" class="btn-get-started" id="confirmButton">Confirm</a>
+                                <a href="#" class="btn-get-started" id="retakeButton">Retake</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /Identify Section -->
+
+</main>
+
+<!-- JavaScript for Camera and Gallery Functionality -->
+<script>
+    const cameraButton = document.getElementById('cameraButton');
+    const galleryButton = document.getElementById('galleryButton');
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('snapshot');
+    const fileInput = document.getElementById('fileInput');
+    const confirmButton = document.getElementById('confirmButton');
+    const retakeButton = document.getElementById('retakeButton');
+    const actionButtons = document.getElementById('actionButtons');
+    
+    let stream;
+
+    cameraButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        startCamera();
+    });
+
+    galleryButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function (event) {
+        loadFromGallery(event);
+    });
+
+    retakeButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (stream) {
+            stopCamera();
+        }
+        resetUI();
+    });
+
+    confirmButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        submitImage();
+    });
+
+    function startCamera() {
+        const constraints = {
+            video: true
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((mediaStream) => {
+                stream = mediaStream;
+                video.srcObject = stream;
+                video.style.display = 'block';
+                cameraButton.style.display = 'none';
+                galleryButton.style.display = 'none';
+                actionButtons.style.display = 'block';
+            })
+            .catch((err) => {
+                console.error('Error accessing the camera: ', err);
+            });
+    }
+
+    function stopCamera() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+    }
+
+    function loadFromGallery(event) {
+        const file = event.target.files[0];
+        const context = canvas.getContext('2d');
+        const img = new Image();
+
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'block';
+            video.style.display = 'none';
+            actionButtons.style.display = 'block';
+            cameraButton.style.display = 'none';
+            galleryButton.style.display = 'none';
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function submitImage() {
+        // Example functionality: Sending the image to the server
+        const imageData = canvas.toDataURL('image/png');
+
+        fetch('/upload_image', {
+            method: 'POST',
+            body: JSON.stringify({ image: imageData }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert('Image confirmed and uploaded successfully!');
+            resetUI();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error uploading image. Please try again.');
+        });
+    }
+
+    function resetUI() {
+        canvas.style.display = 'none';
+        video.style.display = 'none';
+        cameraButton.style.display = 'block';
+        galleryButton.style.display = 'block';
+        actionButtons.style.display = 'none';
+        if (stream) {
+            stopCamera();
+        }
+    }
+</script>
+
+{% endblock %}

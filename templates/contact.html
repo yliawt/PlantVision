@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="main">
+
+  <!-- Page Title -->
+  <div class="page-title light-background">
+    <div class="container">
+      <h1>About Plant Vision</h1>
+      <h2>This website is designed for new plant collectors. It helps them learn about different plant variegation through this web application.</h2>
+    </div>
+  </div><!-- End Page Title -->
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq section">
+    <div class="container" data-aos="fade">
+      <div class="row gy-5 gx-lg-5">
+        <div class="col-lg-4">
+          <div class="info">
+            <h3>Frequently Asked Questions</h3>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="accordion" id="faqAccordion">
+
+            <!-- FAQ 1 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faq1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq1" aria-expanded="true" aria-controls="collapseFaq1">
+                  What is Plant Vision?
+                </button>
+              </h2>
+              <div id="collapseFaq1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Plant Vision is a web application designed to help new plant collectors learn about different plant variegation.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faq2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFaq2" aria-expanded="false" aria-controls="collapseFaq2">
+                  How does it work?
+                </button>
+              </h2>
+              <div id="collapseFaq2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Users can upload images of plants, and the application will identify the plant and provide information on its variegation.
+                </div>
+              </div>
+            </div>
+
+           
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- /FAQ Section -->
+
+  <hr>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+    <div class="container" data-aos="fade">
+      <div class="row gy-5 gx-lg-5">
+
+        <div class="col-lg-4">
+          <div class="info">
+            <h3>Plant Vision</h3>
+            <p>Send us a message if you are stil having questions about our website. </p>
+
+            
+
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+              </div>
+            </div>
+            <div class="form-group mt-3">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+            </div>
+            <div class="form-group mt-3">
+              <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
+            </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your message has been sent. Thank you!</div>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div><!-- End Contact Form -->
+
+      </div>
+    </div>
+  </section><!-- /Contact Section -->
+
+</main>
+{% endblock %}
