@@ -1,0 +1,173 @@
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Container for the login form */
+.login-container {
+    text-align: center;
+}
+
+/* Logo styling */
+.logo img {
+    width: 50vw;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Form styling */
+.login-form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;  /* Remove all borders */
+    border-bottom: 2px solid #ccc;  /* Add only the bottom border */
+    box-sizing: border-box;
+    text-align: center;  /* Center the text in the input */
+    border-radius: 0;  /* Ensure no border radius */
+    outline: none;  /* Remove the outline on focus */
+    transition: border-color 0.3s;  /* Smooth transition for border color on focus */
+}
+
+/* Placeholder styling */
+.login-form input::placeholder {
+    text-align: center;  /* Center the placeholder text horizontally */
+    opacity: 1; /* Ensures the placeholder is visible */
+}
+
+/* Add focus effect for better user experience */
+.login-form input:focus {
+    border-bottom: 2px solid #000;  /* Change bottom border color on focus */
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #000;
+font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+.login-form button:hover {
+    background-color: #f0f0f0;
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.links a {
+    display: block;
+    margin-bottom: 10px;
+    color: #000;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    /* Adjust logo size for smaller screens */
+    .logo img {
+        width: 90vw; /* Set max-width to 90% of the viewport width */
+    }
+}
+
+/*************************
+Register Page
+*************************/
+
+/* Container for the registration form */
+.register-container {
+    text-align: center;
+}
+
+/* Form styling */
+.register-form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;  /* Remove all borders */
+    border-bottom: 2px solid #ccc;  /* Add only the bottom border */
+    box-sizing: border-box;
+    text-align: center;  /* Center the text in the input */
+    border-radius: 0;  /* Ensure no border radius */
+    outline: none;  /* Remove the outline on focus */
+    transition: border-color 0.3s;  /* Smooth transition for border color on focus */
+}
+
+/* Placeholder styling */
+.register-form input::placeholder {
+    text-align: center;  /* Center the placeholder text horizontally */
+    opacity: 1; /* Ensures the placeholder is visible */
+}
+
+/* Add focus effect for better user experience */
+.register-form input:focus {
+    border-bottom: 2px solid #000;  /* Change bottom border color on focus */
+}
+
+
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #000;
+font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+.register-form button:hover {
+    background-color: #f0f0f0;
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.links a {
+    display: block;
+    margin-bottom: 10px;
+    color: #000;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 600px) {
+    /* Adjust logo size for smaller screens */
+    .logo img {
+        width: 90vw; /* Set max-width to 90% of the viewport width */
+    }
+}
