@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block content %}
+
+<head>
+    <!-- Other head elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Include FontAwesome for icons -->
+</head>
+
+<style>
+    .lead {
+        font-size: 18px;
+        font-weight: bold;
+        color: #34495e;
+        margin-bottom: 10px;
+    }
+
+    .content p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    /* Image Styling */
+    .img-wrap {
+        text-align: center;
+    }
+
+    .img-wrap img {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn-get-started {
+        display: inline-block;
+        background-color: #27ae60;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-get-started:hover {
+        background-color: #2ecc71;
+    }
+
+    .text-start {
+        text-align: left;
+    }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .collapsible-header {
+        font-weight: bold;
+        color: #34495e;
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+    }
+
+    .collapsible-content {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-top: none;
+        margin-bottom: 15px;
+        border-radius: 0 0 5px 5px;
+        background-color: #f9f9f9;
+    }
+</style>
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+        <div class="container">
+            <h1>Plant Details</h1>
+        </div>
+    </div><!-- End Page Title -->
+
+    <!-- Plant Details Section -->
+    <section id="about-2" class="about-2 section">
+        <div class="container">
+            <div class="content">
+                <div class="row justify-content-center">
+
+                    <!-- Plant Details -->
+                    <div class="offset-md-0 offset-lg-1 col-sm-12 col-md-5 col-lg-5 col-xl-4" data-aos="fade-up">
+                        <div class="px-3">
+                            <h2 class="content-title text-start">
+                                Monstera Thai Constellation
+                            </h2>
+                            <p class="lead">Description:</p>
+                            <p>This plant is known for its stunning variegation and is a favorite among collectors. Its
+                                beautiful leaves can grow quite large and develop distinctive holes as it matures.</p>
+
+                            <!-- Origin Dropdown -->
+                            <div>
+                                <div class="collapsible-header" data-bs-toggle="collapse"
+                                    data-bs-target="#originContent">
+                                    Origin
+                                </div>
+                                <div id="originContent" class="collapse collapsible-content">
+                                    The Monstera Thai Constellation is a cultivated variety that originated in Thailand.
+                                </div>
+                            </div>
+
+                            <!-- Tags Dropdown -->
+                            <div>
+                                <div class="collapsible-header" data-bs-toggle="collapse" data-bs-target="#tagsContent">
+                                    Tags
+                                </div>
+                                <div id="tagsContent" class="collapse collapsible-content">
+                                    #Variegated, #Tropical, #Houseplant
+                                </div>
+                            </div>
+
+                            <!-- Requirements Dropdown -->
+                            <div>
+                                <div class="collapsible-header" data-bs-toggle="collapse"
+                                    data-bs-target="#requirementsContent">
+                                    Requirements
+                                </div>
+                                <div id="requirementsContent" class="collapse collapsible-content">
+                                    <p>Light: Bright, indirect light</p>
+                                    <p>Water: Keep soil moist but not soggy</p>
+                                    <p>Humidity: Prefers high humidity</p>
+                                    <p>Extra Notes: None</p>
+                                </div>
+                            </div>
+
+                            <!-- Expert Review Dropdown -->
+                            <div>
+                                <div class="collapsible-header" data-bs-toggle="collapse"
+                                    data-bs-target="#expertContent">
+                                    Expert Review:
+                                </div>
+                                <div id="expertContent" class="collapse collapsible-content">
+                                    <p>The image quality is excellent, capturing the unique variegation pattern.
+                                        Accuracy of the identification is confirmed by experts.</p>
+                                </div>
+                            </div>
+
+                            <a href="#" class="btn-get-started">Add to Like List</a>
+                        </div>
+                    </div>
+
+                    <!-- Plant Image -->
+                    <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4 order-lg-2 offset-xl-1 mb-4">
+                        <div class="img-wrap text-center text-md-left" data-aos="fade-up" data-aos-delay="100">
+                            <div class="img">
+                                <img src="../static/img/img_v_3.jpg" alt="Monstera Thai Constellation"
+                                    class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!-- /Plant Details Section -->
+
+</main>
+
+{% endblock %}
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

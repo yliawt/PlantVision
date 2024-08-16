@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+
+    /* Submission Form Section */
+    .submission-request .container {
+        margin-top: 30px;
+    }
+
+    .image-container img {
+        max-width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .form-control {
+        border-radius: 25px;
+        padding: 10px 15px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #27ae60;
+        box-shadow: 0 0 8px rgba(39, 174, 96, 0.2);
+    }
+
+    .btn-block {
+        width: 30%;
+        padding: 10px 0;
+        font-size: 16px;
+ 
+        margin-right: 2%;
+    }
+
+    .btn-success {
+        background-color: #27ae60;
+        border-color: #27ae60;
+    }
+
+    .btn-secondary {
+        background-color: #bdc3c7;
+        border-color: #bdc3c7;
+        color: #2c3e50;
+    }
+
+    .btn:hover {
+        filter: brightness(1.1);
+    }
+
+    /* Adjusting for Mobile View */
+    @media (max-width: 768px) {
+        .image-container img {
+            margin-bottom: 20px;
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+        <div class="container">
+            <h2>Submission Request</h2>
+            <div class="row">
+                <p>Share your collection to everyone by submmiting your picture to our database! Everyone can view your collection when they search upon relevant topics.</p>
+            </div>
+        </div>
+    </div><!-- End Page Title -->
+
+    <!-- Submission Form Section -->
+    <section id="submission-request" class="submission-request section">
+        <div class="container">
+            
+            <div class="row align-items-center">
+                <!-- Image Section -->
+                <div class="col-md-6">
+                    <div class="image-container">
+                        <img src="../static/img/img_h_1.jpg" alt="Plant Image" class="img-fluid">
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="plantName">Plant Name</label>
+                            <input type="text" class="form-control" id="plantName" placeholder="Enter plant name">
+                        </div>
+                        <div class="form-group">
+                            <label for="plantVariegation">Plant Variegation</label>
+                            <input type="text" class="form-control" id="plantVariegation" placeholder="Enter plant variegation">
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags</label>
+                            <input type="text" class="form-control" id="tags" placeholder="Enter tags">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="4" placeholder="Enter description"></textarea>
+                        </div>
+                        
+                        <button type="button" class="btn btn-success btn-block">Submit Request</button>
+                        <button type="button" class="btn btn-secondary btn-block">Cancel</button>
+                    
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section><!-- /Submission Form Section -->
+
+</main>
+
+{% endblock %}

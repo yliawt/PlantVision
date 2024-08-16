@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+        <div class="container">
+            <h1>Welcome, Liaw Yee</h1>
+        </div>
+    </div><!-- End Page Title -->
+
+    <!-- Profile Section -->
+    <section id="profile" class="profile section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Left Column: Profile Management -->
+                <div class="col-12 mb-5">
+                    <h2 class="section-title">Profile Management</h2>
+                    <div class="profile-options">
+                        <a href="#" class="profile-link">
+                            <i class="fas fa-id-badge"></i> View Profile
+                        </a>
+                        <a href="#" class="profile-link">
+                            <i class="fas fa-heart"></i> Liked Plants
+                        </a>
+                        <a href="#" class="profile-link">
+                            <i class="fas fa-clipboard-check"></i> Request as Expert
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Account Privacy -->
+                <div class="col-12 mb-5">
+                    <h2 class="section-title">Account Privacy</h2>
+                    <div class="profile-options">
+                        <a href="#" class="profile-link">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        <a href="#" class="profile-link">
+                            <i class="fas fa-sign-out-alt"></i> Log Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /Profile Section -->
+
+</main>
+
+{% endblock %}
